@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" (click)="closeNav()">MyLocalBlog</a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }"
+             (click)="closeNav()">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/all-blogs"
+             routerLinkActive="active"
+             (click)="closeNav()">All Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/add-blogs"
+             routerLinkActive="active"
+             (click)="closeNav()">Add Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div style="margin-top:80px"></div>
+<router-outlet></router-outlet>

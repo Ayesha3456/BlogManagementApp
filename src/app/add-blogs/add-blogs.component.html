@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <h3>{{ editMode ? 'Edit Blog' : 'Add New Blog' }}</h3>
+
+    <form (ngSubmit)="saveBlog()">
+      <!-- Title -->
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" [(ngModel)]="blogTitle" name="title" required />
+      </div>
+
+      <!-- Tags -->
+      <div class="mb-3">
+        <label class="form-label">Tags (comma separated)</label>
+        <input type="text" class="form-control" [(ngModel)]="blogTags" name="tags" placeholder="e.g. angular, frontend" />
+      </div>
+
+      <!-- Content -->
+      <div class="mb-3">
+        <label class="form-label">Content</label>
+        <quill-editor
+          [(ngModel)]="blogContent"
+          name="content"
+          [modules]="quillModules"
+          theme="snow"
+          style="height: 320px;">
+        </quill-editor>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex">
+        <button class="btn btn-primary me-2" type="submit">{{ editMode ? 'Update' : 'Save' }}</button>
+        <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

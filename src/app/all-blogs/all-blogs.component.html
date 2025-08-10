@@ -1,0 +1,86 @@
+<div class="blogs-container container mt-4">
+  <!-- Search & Tag Filters -->
+  <div class="row mb-3 align-items-center">
+    <div class="col-md-6 mb-2 mb-md-0">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchText"
+        placeholder="🔍 Search blogs..."
+        (input)="applyFilters()"
+      />
+    </div>
+    <div class="col-md-6 text-md-end">
+      <div class="tag-filter-container">
+        <span
+          *ngFor="let tag of allTags"
+          (click)="filterByTag(tag)"
+          class="badge tag-badge me-2"
+          [class.active]="tag === selectedTag"
+          [style.backgroundColor]="tagColors[tag]"
+        >
+          {{ tag }}
+        </span>
+        <span
+          *ngIf="selectedTag"
+          class="badge bg-secondary clear-badge"
+          (click)="filterByTag('')"
+        >
+          ❌ Clear
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blogs List -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let blog of filteredBlogs">
+      <div class="card blog-card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{ blog.title }}</h5>
+          <p class="card-text text-muted">{{ blog.description }}</p>
+          <div class="mb-2">
+            <span
+              *ngFor="let tag of blog.tags"
+              class="badge me-1"
+              [style.backgroundColor]="tagColors[tag]"
+            >
+              {{ tag }}
+            </span>
+          </div>
+        </div>
+        <div class="card-footer text-end bg-light">
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="viewBlog(blog)">
+            View
+          </button>
+          <button class="btn btn-sm btn-outline-warning me-2" (click)="editBlog(blog)">
+            Edit
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteBlog(blog.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Blog Modal -->
+  <div *ngIf="showView" class="custom-modal-backdrop">
+    <div class="custom-modal">
+      <h4 class="mb-3">{{ selected?.title }}</h4>
+      <p class="mb-3">{{ selected?.description }}</p>
+      <div class="mb-3">
+        <span
+          *ngFor="let tag of selected?.tags"
+          class="badge me-1"
+          [style.backgroundColor]="tagColors[tag]"
+        >
+          {{ tag }}
+        </span>
+      </div>
+      <div class="text-end">
+        <button class="btn btn-secondary" (click)="closeView()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
