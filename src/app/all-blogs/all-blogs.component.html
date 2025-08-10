@@ -34,6 +34,12 @@
 
   <!-- Blogs List -->
   <div class="row">
+    <!-- Show message if no blogs available -->
+    <div *ngIf="filteredBlogs.length === 0" class="text-center p-4 w-100">
+      <p class="fs-5">No blogs found. Please add a blog!</p>
+      <button class="btn btn-primary" (click)="addBlog()">Add Blog</button>
+    </div>
+
     <div class="col-md-4 mb-4" *ngFor="let blog of filteredBlogs">
       <div class="card blog-card h-100 shadow-sm">
         <div class="card-body">
