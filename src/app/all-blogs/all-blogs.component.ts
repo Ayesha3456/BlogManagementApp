@@ -77,4 +77,9 @@ export class AllBlogsComponent implements OnInit {
   editBlog(blog: any) {
     this.router.navigate(['/edit', blog.id]);
   }
+
+  addBlog() {
+    // Navigate to your add blog page or form (adjust the path accordingly)
+    this.router.navigate(['/add-blogs']);
+  }
 }
