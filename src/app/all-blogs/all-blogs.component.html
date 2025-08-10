@@ -68,7 +68,7 @@
   <div *ngIf="showView" class="custom-modal-backdrop">
     <div class="custom-modal">
       <h4 class="mb-3">{{ selected?.title }}</h4>
-      <p class="mb-3">{{ selected?.description }}</p>
+      <p class="mb-3"> [innerHTML]="selected?.description"></p>
       <div class="mb-3">
         <span
           *ngFor="let tag of selected?.tags"
