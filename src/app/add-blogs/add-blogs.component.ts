@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 
@@ -54,9 +54,9 @@ export class AddBlogsComponent implements OnInit {
     }
   }
 
-  saveBlog() {
-    if (!this.blogTitle.trim() || !this.blogContent.trim()) {
-      alert('Please enter both title and content.');
+  saveBlog(form: NgForm) {
+    if (form.invalid) {
+      form.control.markAllAsTouched();
       return;
     }
 

@@ -2,17 +2,35 @@
   <div class="card shadow-sm p-4">
     <h3>{{ editMode ? 'Edit Blog' : 'Add New Blog' }}</h3>
 
-    <form (ngSubmit)="saveBlog()">
+    <form #blogForm="ngForm" (ngSubmit)="saveBlog(blogForm)">
       <!-- Title -->
       <div class="mb-3">
         <label class="form-label">Title</label>
-        <input type="text" class="form-control" [(ngModel)]="blogTitle" name="title" required />
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="blogTitle"
+          name="title"
+          required
+          minlength="5"
+          #title="ngModel"
+        />
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger mt-1">
+          <small *ngIf="title.errors?.['required']">Title is required.</small>
+          <small *ngIf="title.errors?.['minlength']">Title must be at least 5 characters long.</small>
+        </div>
       </div>
 
       <!-- Tags -->
       <div class="mb-3">
         <label class="form-label">Tags (comma separated)</label>
-        <input type="text" class="form-control" [(ngModel)]="blogTags" name="tags" placeholder="e.g. angular, frontend" />
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="blogTags"
+          name="tags"
+          placeholder="e.g. angular, frontend"
+        />
       </div>
 
       <!-- Content -->
@@ -21,15 +39,23 @@
         <quill-editor
           [(ngModel)]="blogContent"
           name="content"
+          [required]="true"
+          #content="ngModel"
           [modules]="quillModules"
           theme="snow"
-          style="height: 320px;">
+          style="height: 320px;"
+        >
         </quill-editor>
+        <div *ngIf="content.invalid && (content.dirty || content.touched)" class="text-danger mt-1">
+          <small *ngIf="content.errors?.['required']">Content is required.</small>
+        </div>
       </div>
 
       <!-- Buttons -->
       <div class="d-flex">
-        <button class="btn btn-primary me-2" type="submit">{{ editMode ? 'Update' : 'Save' }}</button>
+        <button class="btn btn-primary me-2" type="submit" [disabled]="blogForm.invalid">
+          {{ editMode ? 'Update' : 'Save' }}
+        </button>
         <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
       </div>
     </form>
